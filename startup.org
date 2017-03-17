@@ -1,0 +1,50 @@
+#+PROPERTY: header-args  :tangle no
+#+OPTIONS: num:nil ^:{}
+* Research
+** Systemwide startup
+Setting up configuration for all invokations of python is described in the Python3 docs  [[https://docs.python.org/3/tutorial/appendix.html#the-customization-modules][here]].
+#+BEGIN_EXAMPLE python
+  import site
+  site.getusersitepackages()
+  # '/home/benrudgers/.local/lib/python3.6/site-packages'
+#+END_EXAMPLE
+
+** Interactive startup
+This file is the source for =startup.py= which is invoked for *my* user sessions based on the configuration in =~/.profile=:
+#+BEGIN_EXAMPLE sh
+  PYTHONSTARTUP="$HOME/python/startup/startup.py
+#+END_EXAMPLE
+
+** Loading a module by path name
+There are more [[https://stackoverflow.com/questions/67631/how-to-import-a-module-given-the-full-path][descriptions]] of how to do this than you can shake a stick at. The top answer is:
+#+BEGIN_EXAMPLE python
+  import importlib.util
+  spec = importlib.util.spec_from_file_location("module.name", "/path/to/file.py")
+  foo = importlib.util.module_from_spec(spec)
+  spec.loader.exec_module(foo)
+  foo.MyClass()
+#+END_EXAMPLE
+The simple answer is:
+#+BEGIN_EXAMPLE python
+  import sys
+  # the mock-0.3.1 dir contains testcase.py, testutils.py & mock.py
+  sys.path.append('/foo/bar/mock-0.3.1')
+#+END_EXAMPLE
+* Implementation
+** shell helpers
+#+NAME: shell-helpers
+#+BEGIN_SRC python :tangle yes
+  import os
+  from os import getcwd as pwd
+  from os import chdir as cd
+  from os import listdir as ls
+  from os import mkdir as mkdir
+#+END_SRC
+** using
+#+NAME: import-using
+#+BEGIN_SRC python :tangle yes
+  from sys import path as path
+  path.append('/home/benrudgers/python/using')
+  from using import using as using
+#+END_SRC
+ 
