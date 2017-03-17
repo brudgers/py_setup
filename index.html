@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2017-03-17 Fri 16:07 -->
+<!-- 2017-03-17 Fri 16:24 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title></title>
@@ -232,30 +232,30 @@ for the JavaScript code in this tag.
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#org02d99b2">Research</a>
+<li><a href="#org6254a1e">Research</a>
 <ul>
-<li><a href="#orgd677beb">Systemwide startup</a></li>
-<li><a href="#org6472da6">Interactive startup</a></li>
-<li><a href="#org52632fb">Loading a module by path name</a></li>
+<li><a href="#org76f27eb">System wide startup</a></li>
+<li><a href="#org814718f">Interactive startup</a></li>
+<li><a href="#org94dfd03">Loading a module by path name</a></li>
 </ul>
 </li>
-<li><a href="#orgbb9c0b3">Implementation</a>
+<li><a href="#org731d7af">Implementation</a>
 <ul>
-<li><a href="#orgd566bd1">shell helpers</a></li>
-<li><a href="#org8abc24d">using</a></li>
+<li><a href="#org5b8d7e9">shell helpers</a></li>
+<li><a href="#org207f050">using</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
-<div id="outline-container-org02d99b2" class="outline-2">
-<h2 id="org02d99b2">Research</h2>
-<div class="outline-text-2" id="text-org02d99b2">
-</div><div id="outline-container-orgd677beb" class="outline-3">
-<h3 id="orgd677beb">Systemwide startup</h3>
-<div class="outline-text-3" id="text-orgd677beb">
+<div id="outline-container-org6254a1e" class="outline-2">
+<h2 id="org6254a1e">Research</h2>
+<div class="outline-text-2" id="text-org6254a1e">
+</div><div id="outline-container-org76f27eb" class="outline-3">
+<h3 id="org76f27eb">System wide startup</h3>
+<div class="outline-text-3" id="text-org76f27eb">
 <p>
-Setting up configuration for all invokations of python is described in the Python3 docs  <a href="https://docs.python.org/3/tutorial/appendix.html#the-customization-modules">here</a>.
+Setting up configuration for all invocations of python is described in the Python3 docs  <a href="https://docs.python.org/3/tutorial/appendix.html#the-customization-modules">here</a>.
 </p>
 <pre class="example">
 import site
@@ -265,9 +265,9 @@ site.getusersitepackages()
 </div>
 </div>
 
-<div id="outline-container-org6472da6" class="outline-3">
-<h3 id="org6472da6">Interactive startup</h3>
-<div class="outline-text-3" id="text-org6472da6">
+<div id="outline-container-org814718f" class="outline-3">
+<h3 id="org814718f">Interactive startup</h3>
+<div class="outline-text-3" id="text-org814718f">
 <p>
 This file is the source for <code>startup.py</code> which is invoked for <b>my</b> user sessions based on the configuration in <code>~/.profile</code>:
 </p>
@@ -277,9 +277,9 @@ PYTHONSTARTUP="$HOME/python/startup/startup.py
 </div>
 </div>
 
-<div id="outline-container-org52632fb" class="outline-3">
-<h3 id="org52632fb">Loading a module by path name</h3>
-<div class="outline-text-3" id="text-org52632fb">
+<div id="outline-container-org94dfd03" class="outline-3">
+<h3 id="org94dfd03">Loading a module by path name</h3>
+<div class="outline-text-3" id="text-org94dfd03">
 <p>
 There are more <a href="https://stackoverflow.com/questions/67631/how-to-import-a-module-given-the-full-path">descriptions</a> of how to do this than you can shake a stick at. The top answer is:
 </p>
@@ -291,7 +291,7 @@ spec.loader.exec_module(foo)
 foo.MyClass()
 </pre>
 <p>
-The simple answer is:
+The simple answer isthe one I want for using the Python REPL:
 </p>
 <pre class="example">
 import sys
@@ -301,14 +301,17 @@ sys.path.append('/foo/bar/mock-0.3.1')
 </div>
 </div>
 </div>
-<div id="outline-container-orgbb9c0b3" class="outline-2">
-<h2 id="orgbb9c0b3">Implementation</h2>
-<div class="outline-text-2" id="text-orgbb9c0b3">
-</div><div id="outline-container-orgd566bd1" class="outline-3">
-<h3 id="orgd566bd1">shell helpers</h3>
-<div class="outline-text-3" id="text-orgd566bd1">
+<div id="outline-container-org731d7af" class="outline-2">
+<h2 id="org731d7af">Implementation</h2>
+<div class="outline-text-2" id="text-org731d7af">
+</div><div id="outline-container-org5b8d7e9" class="outline-3">
+<h3 id="org5b8d7e9">shell helpers</h3>
+<div class="outline-text-3" id="text-org5b8d7e9">
+<p>
+If I am going to use Python, I want it to help me <b>use</b> my computer and not <b>merely</b> program it. Sometimes I just want <b>commands</b> instead of objects&#x2026;but I suppose I will settle for command like functions. 
+</p>
 <div class="org-src-container">
-<pre class="src src-python" id="org09ffe57">import os
+<pre class="src src-python" id="orgaa2ff0b">import os
 from os import getcwd as pwd
 from os import chdir as cd
 from os import listdir as ls
@@ -317,11 +320,14 @@ from os import mkdir as mkdir
 </div>
 </div>
 </div>
-<div id="outline-container-org8abc24d" class="outline-3">
-<h3 id="org8abc24d">using</h3>
-<div class="outline-text-3" id="text-org8abc24d">
+<div id="outline-container-org207f050" class="outline-3">
+<h3 id="org207f050">using</h3>
+<div class="outline-text-3" id="text-org207f050">
+<p>
+<code>using</code> is a module designed to capture some of the silky goodness of the <code>:use</code> keyword in Common Lisp's <code>defpackage</code>. It is located <a href="https://github.com/brudgers/py_using">here</a>.
+</p>
 <div class="org-src-container">
-<pre class="src src-python" id="org436f012">from sys import path as path
+<pre class="src src-python" id="org1bbd0d8">from sys import path as path
 path.append('/home/benrudgers/python/using')
 from using import using as using
 </pre>
@@ -332,7 +338,7 @@ from using import using as using
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: benrudgers</p>
-<p class="date">Created: 2017-03-17 Fri 16:07</p>
+<p class="date">Created: 2017-03-17 Fri 16:24</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

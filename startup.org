@@ -1,8 +1,8 @@
 #+PROPERTY: header-args  :tangle no
 #+OPTIONS: num:nil ^:{}
 * Research
-** Systemwide startup
-Setting up configuration for all invokations of python is described in the Python3 docs  [[https://docs.python.org/3/tutorial/appendix.html#the-customization-modules][here]].
+** System wide startup
+Setting up configuration for all invocations of python is described in the Python3 docs  [[https://docs.python.org/3/tutorial/appendix.html#the-customization-modules][here]].
 #+BEGIN_EXAMPLE python
   import site
   site.getusersitepackages()
@@ -24,7 +24,7 @@ There are more [[https://stackoverflow.com/questions/67631/how-to-import-a-modul
   spec.loader.exec_module(foo)
   foo.MyClass()
 #+END_EXAMPLE
-The simple answer is:
+The simple answer isthe one I want for using the Python REPL:
 #+BEGIN_EXAMPLE python
   import sys
   # the mock-0.3.1 dir contains testcase.py, testutils.py & mock.py
@@ -32,6 +32,7 @@ The simple answer is:
 #+END_EXAMPLE
 * Implementation
 ** shell helpers
+If I am going to use Python, I want it to help me *use* my computer and not *merely* program it. Sometimes I just want *commands* instead of objects...but I suppose I will settle for command like functions. 
 #+NAME: shell-helpers
 #+BEGIN_SRC python :tangle yes
   import os
@@ -41,6 +42,7 @@ The simple answer is:
   from os import mkdir as mkdir
 #+END_SRC
 ** using
+=using= is a module designed to capture some of the silky goodness of the =:use= keyword in Common Lisp's =defpackage=. It is located [[https://github.com/brudgers/py_using][here]].
 #+NAME: import-using
 #+BEGIN_SRC python :tangle yes
   from sys import path as path
