@@ -10,11 +10,15 @@ Setting up configuration for all invocations of python is described in the Pytho
 #+END_EXAMPLE
 
 ** Interactive startup
-This file is the source for =startup.py= which is invoked for *my* user sessions based on the configuration in =~/.profile=:
+This file is the source for =startup.py= which could be invoked for *my* BASH sessions based on the configuration in =~/.profile=:
 #+BEGIN_EXAMPLE sh
-  PYTHONSTARTUP="$HOME/python/startup/startup.py
+  export PYTHONSTARTUP="$HOME/python/startup/startup.py
 #+END_EXAMPLE
-
+Unfortuneately, this doesn't seem to really help Emacs and while there is probably a setting somewhere, it is simpler to =sudo nano= the configuration into =/etc/environment= as:
+#+BEGIN_EXAMPLE sh
+  PYTHONSTARTUP="/home/benrudgers/python/startup/startup.py
+#+END_EXAMPLE
+Of course, this probably isn't the best solution if I were using lots of users. Fortunately, I probably came to Linux to late in life to have developed craziness in that regard. Email accounts are another story...but I digress and isn't that what literate programming is for?
 ** Loading a module by path name
 There are more [[https://stackoverflow.com/questions/67631/how-to-import-a-module-given-the-full-path][descriptions]] of how to do this than you can shake a stick at. The top answer is:
 #+BEGIN_EXAMPLE python
